@@ -3,36 +3,63 @@ paceOptions = {
     document: true //document is ready
 }
 
+// Initialize EmailJS
+emailjs.init({
+    publicKey: "arwYr4U9ayP5GvL7w",
+});
+
+// Handle form submission
+document.getElementById('contact-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+    // these IDs from the previous steps
+    const sendButton = document.querySelector('.send-btn');
+
+    // Add the 'disabled' class
+    sendButton?.classList.add('disabled');
+    sendButton.disabled = true; // Functionally disable the button
+    sendButton.textContent = 'Sending...'
+    emailjs.sendForm('service_i3hdghb', 'template_3rlq61b', this)
+        .then(() => {
+            alert("Email Sent Successfully")
+            sendButton.textContent = 'Sent'
+            console.log('SUCCESS!');
+        }, (error) => {
+            sendButton.disabled = false; // Re-enable button on failure
+            sendButton.classList.remove('disabled');
+            alert(error)
+            console.log('FAILED...', error);
+        });
+});
 
 Pace.on('done', () => {
     let t1 = gsap.timeline();
-    
+
     // t1.fromTo("nav",{opacity:0,y:-60},{opacity:1,y:0,duration:2})
     t1.add("p")
     t1.to('.pace', {
         transform: 'scale(10,1)',
         duration: 4
-    },"+=.2")
+    }, "+=.2")
     t1.to('.pace', {
         duration: 1,
         height: "100%"
-    },"-=2.8")
-    t1.to('.loading__text',{
-        delay:.2,
-        duration:3,
-        opacity:0,
-        yPercent:-500,
-        ease:'BezierEasing(0.19,1,0.22,1)'
-    },"p")
-    
-    t1.to('#main',{
+    }, "-=2.8")
+    t1.to('.loading__text', {
+        delay: .2,
+        duration: 3,
+        opacity: 0,
+        yPercent: -500,
+        ease: 'BezierEasing(0.19,1,0.22,1)'
+    }, "p")
+
+    t1.to('#main', {
         // duration:2,
-        opacity:1,  
-        height:"100%",
-        
-            
-    },"-=1.8")
-    
+        opacity: 1,
+        height: "100%",
+
+
+    }, "-=1.8")
+
     t1.fromTo(".logo", {
         opacity: 0,
         y: -10
@@ -41,8 +68,8 @@ Pace.on('done', () => {
         y: 0,
         duration: .1,
         delay: 1,
-        ease:'BezierEasing(0.19,1,0.22,1)'
-    },"-=6")
+        ease: 'BezierEasing(0.19,1,0.22,1)'
+    }, "-=6")
     t1.fromTo(".flex-logo li", {
         opacity: 0,
         y: -10
@@ -52,8 +79,8 @@ Pace.on('done', () => {
         stagger: {
             amount: .1
         },
-        ease:'BezierEasing(0.19,1,0.22,1)'
-    },"-=2")
+        ease: 'BezierEasing(0.19,1,0.22,1)'
+    }, "-=2")
     t1.fromTo(".social-icons i", {
         opacity: 0,
         y: -10
@@ -63,10 +90,10 @@ Pace.on('done', () => {
         stagger: {
             amount: .1
         },
-        ease:'BezierEasing(0.19,1,0.22,1)'
-    },"-=1.6")
+        ease: 'BezierEasing(0.19,1,0.22,1)'
+    }, "-=1.6")
     t1.add("image")
-    
+
     t1.fromTo(".location", {
         opacity: 0,
         y: 10
@@ -74,8 +101,8 @@ Pace.on('done', () => {
         opacity: 1,
         y: 0,
         duration: .1,
-        ease:'BezierEasing(0.19,1,0.22,1)'
-    },"-=0.9")
+        ease: 'BezierEasing(0.19,1,0.22,1)'
+    }, "-=0.9")
     t1.fromTo(".list-items li", {
         opacity: 0,
         y: 10,
@@ -88,8 +115,8 @@ Pace.on('done', () => {
         stagger: {
             amount: .3
         },
-        ease:'BezierEasing(0.19,1,0.22,1)'
-    },"-=0.7")
+        ease: 'BezierEasing(0.19,1,0.22,1)'
+    }, "-=0.7")
     t1.fromTo(".connect-btn", {
         opacity: 0,
         y: 10
@@ -97,227 +124,227 @@ Pace.on('done', () => {
         opacity: 1,
         y: 0,
         duration: 2,
-        ease:'BezierEasing(0.19,1,0.22,1)'
-    },"-=0.7")
+        ease: 'BezierEasing(0.19,1,0.22,1)'
+    }, "-=0.7")
     t1.fromTo(".image", {
         opacity: 0,
         filter: "blur(18px)",
-        x:10,
+        x: 10,
         scale: 1
     }, {
         opacity: 1,
-        blur: 0,      
-        x:0,
+        blur: 0,
+        x: 0,
         filter: "blur(0px)",
         scale: 0.98,
         duration: 0.29,
-        ease:'BezierEasing(0.19,1,0.22,1)'
-    },"image")
-    
+        ease: 'BezierEasing(0.19,1,0.22,1)'
+    }, "image")
+
     // ADD START AND END TO AUTO ANIMATE 
     gsap.registerPlugin(ScrollTrigger);
     const t12 = gsap.timeline({
-        scrollTrigger:{
-            trigger:".about-me",
-            start:"top 70%",            
-            
+        scrollTrigger: {
+            trigger: ".about-me",
+            start: "top 70%",
+
         }
     });
-    
-    t12.fromTo(".about-me",{
+
+    t12.fromTo(".about-me", {
         opacity: 0,
-        y: 70,    
-        
-        
+        y: 70,
+
+
     }, {
         opacity: 1,
-        y: 0,  
-        duration:1.5,
-        ease:'BezierEasing(0.19,1,0.22,1)'
+        y: 0,
+        duration: 1.5,
+        ease: 'BezierEasing(0.19,1,0.22,1)'
     })
-    
+
     var t2 = gsap.timeline({
-        scrollTrigger:{
-            trigger:"#ph2",
-            start:"top center",            
-            
+        scrollTrigger: {
+            trigger: "#ph2",
+            start: "top center",
+
         }
     })
     t2.add("desc-1")
-    t2.fromTo("#ph2",{
+    t2.fromTo("#ph2", {
         opacity: 0,
-        y: 70,       
-        
+        y: 70,
+
     }, {
         opacity: 1,
-        y: 0,  
-        duration:1,
-        ease:'BezierEasing(0.19,1,0.22,1)'
+        y: 0,
+        duration: 1,
+        ease: 'BezierEasing(0.19,1,0.22,1)'
     })
-    
-    t2.fromTo("#img-1",{
+
+    t2.fromTo("#img-1", {
         opacity: 0,
-        x: -70,       
-        
+        x: -70,
+
     }, {
         opacity: 1,
-        x: 0,  
-        duration:1,
-        ease:'BezierEasing(0.19,1,0.22,1)'
-    },"desc-1")
-    t2.fromTo(".first-child",{
+        x: 0,
+        duration: 1,
+        ease: 'BezierEasing(0.19,1,0.22,1)'
+    }, "desc-1")
+    t2.fromTo(".first-child", {
         opacity: 0,
-        x: 70,       
-        
+        x: 70,
+
     }, {
         opacity: 1,
-        x: 0,  
-        duration:1,
-        ease:'BezierEasing(0.19,1,0.22,1)'
-    },"desc-1")
-    
+        x: 0,
+        duration: 1,
+        ease: 'BezierEasing(0.19,1,0.22,1)'
+    }, "desc-1")
+
     var t21 = gsap.timeline({
-        scrollTrigger:{
-            trigger:".second-child",
-            start:"top center",            
-            
+        scrollTrigger: {
+            trigger: ".second-child",
+            start: "top center",
+
         }
     })
-    t21.add("desc-2")    
-    t21.fromTo("#img-2",{
+    t21.add("desc-2")
+    t21.fromTo("#img-2", {
         opacity: 0,
-        x: 70,       
-        
+        x: 70,
+
     }, {
         opacity: 1,
-        x: 0,  
-        duration:1,
-        ease:'BezierEasing(0.19,1,0.22,1)'
-    },"desc-2")
-    t21.fromTo("#second-child",{
+        x: 0,
+        duration: 1,
+        ease: 'BezierEasing(0.19,1,0.22,1)'
+    }, "desc-2")
+    t21.fromTo("#second-child", {
         opacity: 0,
-        x: -70,       
-        
+        x: -70,
+
     }, {
         opacity: 1,
-        x: 0,  
-        duration:1,
-        ease:'BezierEasing(0.19,1,0.22,1)'
-    },"desc-2")
-    
+        x: 0,
+        duration: 1,
+        ease: 'BezierEasing(0.19,1,0.22,1)'
+    }, "desc-2")
+
     var t22 = gsap.timeline({
-        scrollTrigger:{
-            trigger:".third-child",
-            start:"top center",            
-            
+        scrollTrigger: {
+            trigger: ".third-child",
+            start: "top center",
+
         }
     })
-    t22.add("desc-3")    
-    t22.fromTo("#img-3",{
+    t22.add("desc-3")
+    t22.fromTo("#img-3", {
         opacity: 0,
-        x: -70,       
-        
+        x: -70,
+
     }, {
         opacity: 1,
-        x: 0,  
-        duration:1,
-        ease:'BezierEasing(0.19,1,0.22,1)'
-    },"desc-3")
-    t22.fromTo("#third-child",{
+        x: 0,
+        duration: 1,
+        ease: 'BezierEasing(0.19,1,0.22,1)'
+    }, "desc-3")
+    t22.fromTo("#third-child", {
         opacity: 0,
-        x: 70,       
-        
+        x: 70,
+
     }, {
         opacity: 1,
-        x: 0,  
-        duration:1,
-        ease:'BezierEasing(0.19,1,0.22,1)'
-    },"desc-3")
-    
+        x: 0,
+        duration: 1,
+        ease: 'BezierEasing(0.19,1,0.22,1)'
+    }, "desc-3")
+
     var qualification = gsap.timeline({
-        scrollTrigger:{
-            trigger:".qualification",
-            start:"top 40%",            
-            
+        scrollTrigger: {
+            trigger: ".qualification",
+            start: "top 40%",
+
         }
     })
-    qualification.fromTo('#qh2',{
-        opacity:0,
+    qualification.fromTo('#qh2', {
         opacity: 0,
-        y: 70,       
-        
+        opacity: 0,
+        y: 70,
+
     }, {
         opacity: 1,
-        y: 0,  
-        duration:1,
-        ease:'BezierEasing(0.19,1,0.22,1)'
+        y: 0,
+        duration: 1,
+        ease: 'BezierEasing(0.19,1,0.22,1)'
 
     })
     const educationJob = gsap.timeline({
-        scrollTrigger:{
-            trigger:".card-grid",
-            start:"top 50%",            
-            
+        scrollTrigger: {
+            trigger: ".card-grid",
+            start: "top 50%",
+
         }
     })
-    educationJob.fromTo('.blend',{       
+    educationJob.fromTo('.blend', {
         opacity: 0,
-        y: 80,       
-        
+        y: 80,
+
     }, {
         opacity: 1,
-        y: 0,  
-        duration:1,
-        ease:'BezierEasing(0.19,1,0.22,1)'
+        y: 0,
+        duration: 1,
+        ease: 'BezierEasing(0.19,1,0.22,1)'
     })
     var contact = gsap.timeline({
-        scrollTrigger:{
-            trigger:".contact",
-            start:"top 40%",            
-            
+        scrollTrigger: {
+            trigger: ".contact",
+            start: "top 40%",
+
         }
     })
-    contact.fromTo('#ch2',{
-        opacity:0,
+    contact.fromTo('#ch2', {
         opacity: 0,
-        y: 30,       
-        
+        opacity: 0,
+        y: 30,
+
     }, {
         opacity: 1,
-        y: 0,  
-        duration:1,
-        ease:'BezierEasing(0.19,1,0.22,1)'
+        y: 0,
+        duration: 1,
+        ease: 'BezierEasing(0.19,1,0.22,1)'
 
     })
     const contactdetails = gsap.timeline({
-        scrollTrigger:{
-            trigger:".contact-card",
-            start:"top 40%",            
-             
+        scrollTrigger: {
+            trigger: ".contact-card",
+            start: "top 40%",
+
         }
     })
     contactdetails.add("form")
-    contactdetails.fromTo('.contact-info',{       
+    contactdetails.fromTo('.contact-info', {
         opacity: 0,
-        x: -80,       
-        
+        x: -80,
+
     }, {
         opacity: 1,
-        x: 0,  
-        duration:1,
-        ease:'BezierEasing(0.19,1,0.22,1)'
+        x: 0,
+        duration: 1,
+        ease: 'BezierEasing(0.19,1,0.22,1)'
     })
-    contactdetails.fromTo('.form',{       
+    contactdetails.fromTo('.form', {
         opacity: 0,
-        x: 80,       
-        
+        x: 80,
+
     }, {
         opacity: 1,
-        x: 0,  
-        duration:1,
-        ease:'BezierEasing(0.19,1,0.22,1)'
-    },"form")
-    
+        x: 0,
+        duration: 1,
+        ease: 'BezierEasing(0.19,1,0.22,1)'
+    }, "form")
+
 
 })
 
@@ -342,7 +369,7 @@ const navSlide = () => {
             if (link.style.animation) {
                 link.style.animation = ''
             } else {
-                link.style.animation = `infofades 1s ease-in-out forwards ${index / 9 }s`;
+                link.style.animation = `infofades 1s ease-in-out forwards ${index / 9}s`;
             }
         });
         hamburger.classList.toggle('toggle');
